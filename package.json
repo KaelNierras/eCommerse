@@ -9,13 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.1",
+    "@radix-icons/vue": "^1.0.0",
+    "@vee-validate/zod": "^4.12.5",
+    "@vueuse/core": "^10.8.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "firebase": "^10.8.0",
     "lucide-vue-next": "^0.341.0",
     "radix-vue": "^1.4.9",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
-    "vue": "^3.4.19"
+    "vee-validate": "^4.12.5",
+    "vue": "^3.4.19",
+    "vue-router": "^4.3.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20.11.20",
