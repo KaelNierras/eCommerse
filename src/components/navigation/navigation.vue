@@ -1,10 +1,9 @@
 <template>
-  <div class="p-4 h-42 gap-2 flex flex-col backdrop-blur-lg items-center md:h-16 md:justify-between justify-center relative md:flex-row mx-10">
+  <div class="p-4 h-42 gap-2 flex flex-col backdrop-blur-lg items-center md:h-16 md:justify-between justify-center relative md:flex-row mx-40">
   
     <div class="flex md:pt-0 pt-0 flex-col md:flex-row gap-2">
       <img src="/yourStyleLogo.jpg" class=" w-36 h-auto pt-4 md:pt-0 hover:cursor-pointer" alt="YourStyle">
     </div>
-
 
     <div class="flex md:hidden relative w-full max-w-sm items-center mt-10">
         <Input id="search" type="text" placeholder="Search..." class="pl-10" />
@@ -13,7 +12,7 @@
         </span>
     </div>
 
-    <div class="flex flex-row items-center gap-3">
+    <div class="flex flex-row items-center">
       <Button variant="ghost" class="hidden md:flex ">
         <Search v-if="!search" class="size-6 text-muted-foreground hover:cursor-pointer" @click="search = true" />
       </Button>
@@ -40,8 +39,8 @@
       </Button>
     </div>
   </div>
-  <div v-if="isLoggedIn" class="flex p-3 flex-row mx-5 md:mx-14 mb-2 items-center gap-3">
-      <span> Categories</span>
+  <div v-if="isLoggedIn" class="flex p-3 flex-row mx-5 md:mx-52 mb-2 items-center">
+      <span> Categories:</span>
       <Button variant="ghost">Men</Button>
       <Button variant="ghost">Women</Button>
   </div>

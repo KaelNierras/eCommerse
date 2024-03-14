@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import LoginView from '../features/authentication/views/login_view.vue';
 import DashboardViewAdmin from '../features/admin_dashboard/views/dashboard_view.vue';
 import DashboardViewUser from '../features/user_dashboard/views/user_view.vue';
+import MenCategory from '../features/user_dashboard/views/men_view.vue';
 // import CustomerView from '../views/customer_view.vue';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
@@ -10,6 +11,9 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'login',
     component: LoginView,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: '/admin-dashboard',
@@ -23,6 +27,14 @@ const routes: RouteRecordRaw[] = [
     path: '/dashboard',
     name: 'dashboard',
     component: DashboardViewUser,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/men',
+    name: 'men',
+    component: MenCategory,
     meta: {
       requiresAuth: true,
     },
