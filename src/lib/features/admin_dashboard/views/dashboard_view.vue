@@ -4,7 +4,6 @@
         <p>Welcome to the admin dashboard</p>
     </div>
 </template>
-
 <script setup lang="ts">
 
 </script>
