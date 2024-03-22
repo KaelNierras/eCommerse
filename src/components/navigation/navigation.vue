@@ -17,7 +17,9 @@
     </div>
 
     <div class="flex md:pt-0 pt-0 flex-col w-48 items-center justify-center md:flex-row gap-2">
-      <img src="/yourStyleLogo.jpg" class=" w-36 h-auto md:pt-0 hover:cursor-pointer" alt="YourStyle">
+      <router-link to="/dashboard">
+        <img src="/yourStyleLogo.jpg" class=" w-36 h-auto md:pt-0 hover:cursor-pointer" alt="YourStyle">
+      </router-link>
     </div>
 
     <div class="flex md:hidden relative w-56 items-center mt-2">
