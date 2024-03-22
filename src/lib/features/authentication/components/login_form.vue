@@ -68,7 +68,7 @@ const signInWithEmail = async (email: string, password: string) => {
         <!-- <a href="#" class="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a> -->
       </div>
       <Button type="submit"
-        class="w-full">Login</Button>
+        class="w-full ">Login</Button>
       <!-- <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
             Not registered? <a href="#" class="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
         </div> -->
