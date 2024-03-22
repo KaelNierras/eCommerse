@@ -3,7 +3,8 @@ import LoginView from '../features/authentication/views/login_view.vue';
 import DashboardViewAdmin from '../features/admin_dashboard/views/dashboard_view.vue';
 import DashboardViewUser from '../features/user_dashboard/views/user_view.vue';
 import MenCategory from '../features/user_dashboard/views/men_view.vue';
-// import CustomerView from '../views/customer_view.vue';
+import WomenCategory from '../features/user_dashboard/views/women_view.vue';
+import KidsCategory from '../features/user_dashboard/views/kids_view.vue';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const routes: RouteRecordRaw[] = [
@@ -35,6 +36,22 @@ const routes: RouteRecordRaw[] = [
     path: '/men',
     name: 'men',
     component: MenCategory,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/women',
+    name: 'women',
+    component: WomenCategory,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/kids',
+    name: 'kids',
+    component: KidsCategory,
     meta: {
       requiresAuth: true,
     },

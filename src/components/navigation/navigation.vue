@@ -10,6 +10,10 @@
       <router-link to="/women">
         <Button variant="ghost" class="font-bold p-0">Women</Button>
       </router-link>
+
+      <router-link to="/kids">
+        <Button variant="ghost" class="font-bold p-0">Kids</Button>
+      </router-link>
     </div>
 
     <div class="flex md:pt-0 pt-0 flex-col w-48 items-center justify-center md:flex-row gap-2">

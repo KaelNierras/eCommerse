@@ -1,11 +1,11 @@
 <template>
       <!-- header -->
   <div class="w-full flex flex-col items-center justify-center gap-5 mt-20 mb-20">
-    <h1 class="text-5xl font-bold">MEN CLOTHING COLLECTION</h1>
+    <h1 class="text-5xl font-bold">KIDS CLOTHING COLLECTION</h1>
     <p class="text-md text-center opacity-40 font-semibold">
-        Dive into our Men's Clothing Collection, a perfect blend of timeless classics and modern trends. 
-        Experience the finest quality materials, impeccable design,<br>and superior craftsmanship in every piece. 
-        Elevate your style with our latest collection.
+      Discover our Kids' Clothing Collection, a delightful mix of comfort, style, and durability. 
+      Experience the softness of high-quality fabrics,<br>playful designs, and meticulous craftsmanship in each piece. 
+      Add a touch of fun to their wardrobe with our latest collection.
     </p>
   </div>
 

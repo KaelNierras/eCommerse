@@ -5,7 +5,7 @@
     <img src="/background.png" alt="background" class="w-full h-full object-cover rounded-xl max-h-cover" />
     <div
       class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-secondary flex flex-col items-start w-full h-full justify-end p-8 :p-10 gap-2 md:gap-8">
-      <h1 class=" font-bold text-2xl md:text-5xl">FASHION SUMMER COLLECTION</h1>
+      <h1 class=" font-bold text-2xl md:text-5xl">MEN SUMMER COLLECTION</h1>
       <div class="flex flex-row justify-between w-full">
         <p class=" text-xs   md:text-lg">Find out our best summer collection. Offering our best quality product in a
           Tolus<br>Spring Collection</p>

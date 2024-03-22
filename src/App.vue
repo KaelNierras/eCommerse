@@ -5,7 +5,7 @@
     <main class="items-center justify-center w-full mx-10 md:mx-52 my-2 rounded">
       <RouterView />
     </main>
-    <Footer class="mt-5 w-full"/>
+    <Footer class="mt-40 w-full"/>
   </div>
 </template>
 
@@ -25,6 +25,11 @@ const womenBreadcrumbs = [
   {name: 'Women', ref: '/women'},
 ]
 
+const kidsBreadcrumbs = [
+  {name: 'Kids', ref: '/kids'},
+]
+
+
 const route = useRoute();
 
 const currentBreadcrumbs = computed(() => {
@@ -33,6 +38,9 @@ const currentBreadcrumbs = computed(() => {
   } 
   else if (route.path === '/women') {
     return womenBreadcrumbs;
+  }
+  else if (route.path === '/kids') {
+    return kidsBreadcrumbs;
   }
   else {
     return [];
