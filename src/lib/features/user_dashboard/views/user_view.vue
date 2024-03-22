@@ -9,9 +9,9 @@
       <div class="flex flex-row justify-between w-full">
         <p class=" text-xs   md:text-lg">Find out our best summer collection. Offering our best quality product in a
           Tolus<br>Spring Collection</p>
-          <router-link to="/men">
-            <Button variant="secondary" class="px-8 rounded-full font-bold"> Buy Now</Button>
-          </router-link>
+        <router-link to="/men">
+          <Button variant="secondary" class="px-8 rounded-full font-bold"> Buy Now</Button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -40,27 +40,26 @@
   </div>
 
 
-    <!-- header -->
-    <div class="w-full flex flex-col items-center justify-center gap-5 mt-40 mb-20">
+  <!-- header -->
+  <div class="w-full flex flex-col items-center justify-center gap-5 mt-40 mb-20">
     <h1 class="text-5xl font-bold">CATEGORIES</h1>
-    <p class="text-md text-center opacity-40 font-semibold">Our lastest collection of category where classic and contemporary styles
-      converge in<br>perfect harmony</p>
+    <p class="text-md text-center opacity-40 font-semibold">Explore our diverse categories, a blend of classic and
+      contemporary styles.<br>Discover the perfect harmony of design, style, and quality in our latest collection.</p>
   </div>
 
-
-<div class="w-full h-full flex flex-wrap sm:flex-nowrap justify-center">
-  <div v-for="(item, index) in category" :key="index" class="h-auto m-2 relative">
-    <a href="#">
-      <img class="rounded-lg h-96 w-auto object-cover" :src="item.image" alt="" />
-      <div class="absolute bottom-0 left-0 p-5 md:p-10 w-full bg-opacity-50 text-white">
-        <p class="font-bold text-4xl mb-5">{{ item.name }}</p>
-        <router-link :to="item.ref">
-          <Button variant="secondary" class="px-8 rounded-full font-bold">See Details</Button>
-        </router-link>
-      </div>
-    </a>
+  <div class="w-full h-full flex flex-wrap sm:flex-nowrap justify-center">
+    <div v-for="(item, index) in category" :key="index" class="h-auto m-2 relative">
+      <a href="#">
+        <img class="rounded-lg h-96 w-auto object-cover" :src="item.image" alt="" />
+        <div class="absolute bottom-0 left-0 p-5 md:p-10 w-full bg-opacity-50 text-white">
+          <p class="font-bold text-4xl mb-5">{{ item.name }}</p>
+          <router-link :to="item.ref">
+            <Button variant="secondary" class="px-8 rounded-full font-bold">See Details</Button>
+          </router-link>
+        </div>
+      </a>
+    </div>
   </div>
-</div>
 
 
 
@@ -77,16 +76,14 @@ const newCollection = ref([
   { id: 4, name: 'Sweater', price: 400, description: 'A warm and cozy sweater for cold weather', image: '/background.png' },
   { id: 5, name: 'Jeans', price: 500, description: 'Stylish and durable jeans for any occasion', image: '/background.png' },
   { id: 6, name: 'Shirt', price: 200, description: 'A classic shirt for formal or casual wear', image: '/background.png' },
-  { id: 7, name: 'Shorts', price: 200, description: 'Comfortable shorts for warm weather', image: '/background.png' },
-  { id: 8, name: 'Socks', price: 50, description: 'Soft and comfortable socks for everyday wear', image: '/background.png' },
-  { id: 9, name: 'Hat', price: 150, description: 'A stylish hat for sunny days', image: '/background.png' },
+
 ]);
 
 
 const category = ref([
-  { id: 1, name: 'MEN',  image: '/men-category.png', ref:'/men' },
-  { id: 2, name: 'WOMEN', image: '/women-category.png', ref:'/women' },
-  { id: 2, name: 'KIDS', image: '/kids-category.png', ref:'/kids' },
+  { id: 1, name: 'MEN', image: '/men-category.png', ref: '/men' },
+  { id: 2, name: 'WOMEN', image: '/women-category.png', ref: '/women' },
+  { id: 2, name: 'KIDS', image: '/kids-category.png', ref: '/kids' },
 ]);
 
 </script>
