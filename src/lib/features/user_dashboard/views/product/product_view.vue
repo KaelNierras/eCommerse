@@ -44,28 +44,8 @@
 import { Star } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue';
 import { ref } from 'vue';
+import { Image, ProductDetails, ProductStats, Size } from '../../models/product';
 
-interface Image {
-    url: string;
-}
-
-interface ProductStats {
-    rating: string;
-    reviews: string;
-    sold: string;
-}
-
-interface ProductDetails {
-    name: string;
-    price: string;
-    color: string;
-    currency: string;
-    description: string;
-}
-
-interface Size {
-    size: string;
-}
 
 const images: Image[] = [
     { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg' },
