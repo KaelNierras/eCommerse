@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col h-screen">
+  <div class="flex flex-col h-full items-center md:px-48 px-5">
     <Navigation class="sticky top-0 left-0 w-full z-50 drop-shadow-md" />
-    <breadcrumbs :items="currentBreadcrumbs"/>
-    <main class="items-center justify-center bg-muted mx-5 md:mx-52 my-2 rounded">
+    <breadcrumbs :items="currentBreadcrumbs" class="w-full mx-48"/>
+    <main class="items-center justify-center w-full mx-10 md:mx-52 my-2 rounded">
       <RouterView />
     </main>
-    <Footer class="mt-5"/>
+    <Footer class="mt-5 w-full"/>
   </div>
 </template>
 
