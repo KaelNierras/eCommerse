@@ -19,6 +19,7 @@
     "flowbite": "^2.3.0",
     "flowbite-vue": "^0.1.3",
     "lucide-vue-next": "^0.341.0",
+    "primevue": "^3.50.0",
     "radix-vue": "^1.4.9",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",

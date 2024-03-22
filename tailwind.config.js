@@ -25,7 +25,9 @@ module.exports = {
       maxHeight: {
         'cover': '40rem',
       },
-      
+      height: {
+        'feature': '40rem',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

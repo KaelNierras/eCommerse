@@ -26,9 +26,9 @@
 
   <div class="w-full h-full grid sm:grid-cols-1 md:grid-cols-3 gap-5 mt-5">
     <div v-for="(item, index) in newCollection" :key="index" class="h-auto m-2">
-      <a href="#">
+      <router-link :to="`/product/${item.id}`">
         <img class="rounded-lg h-80 w-auto object-cover" :src="item.image" alt="" />
-      </a>
+      </router-link>
       <div class="p-3">
         <div class="flex flex-col justify-between font-bold gap-1">
           <p class="font-bold text-2xl">{{ item.name }}</p>

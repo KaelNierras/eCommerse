@@ -2,9 +2,10 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import LoginView from '../features/authentication/views/login_view.vue';
 import DashboardViewAdmin from '../features/admin_dashboard/views/dashboard_view.vue';
 import DashboardViewUser from '../features/user_dashboard/views/user_view.vue';
-import MenCategory from '../features/user_dashboard/views/men_view.vue';
-import WomenCategory from '../features/user_dashboard/views/women_view.vue';
-import KidsCategory from '../features/user_dashboard/views/kids_view.vue';
+import MenCategory from '../features/user_dashboard/views/categories/men_view.vue';
+import WomenCategory from '../features/user_dashboard/views/categories/women_view.vue';
+import KidsCategory from '../features/user_dashboard/views/categories/kids_view.vue';
+import ProductView from '../features/user_dashboard/views/product/product_view.vue';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const routes: RouteRecordRaw[] = [
@@ -52,6 +53,14 @@ const routes: RouteRecordRaw[] = [
     path: '/kids',
     name: 'kids',
     component: KidsCategory,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/product/:id',
+    name: 'product',
+    component: ProductView,
     meta: {
       requiresAuth: true,
     },
