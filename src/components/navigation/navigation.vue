@@ -31,12 +31,6 @@
       <Button variant="ghost" v-if="isLoggedIn" class="p-0">
         <ShoppingCart class="size-6 text-muted-foreground hover:cursor-pointer" />
       </Button>
-      <div class="flex items-center">
-        <Button variant="ghost" size="sm" class="mr-0 p-0" @click="toggleDarkMode">
-          <Sun class="text-muted-foreground" v-if="darkMode" />
-          <Moon class="text-muted-foreground" v-else />
-        </Button>
-      </div>
       <Button v-if="!isLoggedIn" to="/" class="hover:cursor-pointer">
         LOGIN
       </Button>
@@ -50,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { ShoppingCart, Search, Sun, Moon, LogOut } from 'lucide-vue-next';
+import { ShoppingCart, Search, LogOut } from 'lucide-vue-next';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ref, onMounted } from "vue";
@@ -59,34 +53,8 @@ import router from '@/lib/router';
 
 var search = ref(false);
 
-const darkMode = ref(getDarkMode());
 var isLoggedIn = ref(localStorage.getItem('loggedIn') === 'true');
-console.log(isLoggedIn.value);
 
-function getDarkMode() {
-  // Try to get the dark mode setting from localStorage
-  const storedDarkMode = localStorage.getItem('darkMode');
-
-  // If the setting exists, return it (converted to a boolean)
-  if (storedDarkMode !== null) {
-    return storedDarkMode === 'true';
-  }
-
-  // Otherwise, determine the setting based on the body class
-  const body = document.querySelector('body');
-  const isDark = body?.classList.contains('dark');
-  return isDark;
-}
-
-function toggleDarkMode() {
-  darkMode.value = !darkMode.value;
-
-  // Store the new setting in localStorage
-  localStorage.setItem('darkMode', darkMode.value.toString());
-
-  const body = document.querySelector('body');
-  body?.classList.toggle('dark', darkMode.value);
-}
 
 function signout() {
   const auth = getAuth();
@@ -104,8 +72,7 @@ function signout() {
 
 
 onMounted(() => {
-  const body = document.querySelector('body');
-  body?.classList.toggle('dark', darkMode.value);
+
 
   // Check if the user is logged in when the component is mounted
   const auth = getAuth();
