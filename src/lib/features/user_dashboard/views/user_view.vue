@@ -67,23 +67,9 @@
 
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
-import { ref } from 'vue';
-import { Items } from '../models/item';
-import { CategoryItem } from '../models/category';
+import { newCollection } from '../models/item';
+import { category } from '../models/category';
 
-const newCollection = ref<Items[]>([
-  { id: 1, name: 'Jacket', price: 300, description: 'A stylish and warm jacket for winter', image: '/background.png' },
-  { id: 2, name: 'Pants', price: 300, description: 'Comfortable and durable pants for everyday wear', image: '/background.png' },
-  { id: 3, name: 'T-shirt', price: 300, description: 'A soft and comfortable t-shirt for casual wear', image: '/background.png' },
-  { id: 4, name: 'Sweater', price: 400, description: 'A warm and cozy sweater for cold weather', image: '/background.png' },
-  { id: 5, name: 'Jeans', price: 500, description: 'Stylish and durable jeans for any occasion', image: '/background.png' },
-  { id: 6, name: 'Shirt', price: 200, description: 'A classic shirt for formal or casual wear', image: '/background.png' },
-]);
 
-const category = ref<CategoryItem[]>([
-  { id: 1, name: 'MEN', image: '/men-category.png', ref: '/men' },
-  { id: 2, name: 'WOMEN', image: '/women-category.png', ref: '/women' },
-  { id: 3, name: 'KIDS', image: '/kids-category.png', ref: '/kids' },
-]);
 
 </script>
