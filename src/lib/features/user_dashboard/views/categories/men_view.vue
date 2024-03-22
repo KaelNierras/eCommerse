@@ -27,8 +27,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { Items } from '../../models/item';
 
-const menItems = ref([
+const menItems = ref<Items[]>([
   { id: 1, name: 'Jacket', price: 300, description: 'A stylish and warm jacket for winter', image: '/background.png' },
   { id: 2, name: 'Pants', price: 300, description: 'Comfortable and durable pants for everyday wear', image: '/background.png' },
   { id: 3, name: 'T-shirt', price: 300, description: 'A soft and comfortable t-shirt for casual wear', image: '/background.png' },

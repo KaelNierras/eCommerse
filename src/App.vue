@@ -5,7 +5,8 @@
     <main class="items-center justify-center w-full mx-10 md:mx-52 my-2 rounded">
       <RouterView />
     </main>
-    <Footer class="mt-40 w-full"/>
+    <Separator class="mt-40"/>
+    <Footer class="w-full"/>
   </div>
 </template>
 
@@ -15,6 +16,8 @@ import { computed } from 'vue';
 import Navigation from '@/components/navigation/navigation.vue';
 import Footer from '@/components/footer/footer.vue';
 import breadcrumbs from '@/components/breadcrumbs/breadcrumbs.vue';
+import { Separator } from "@/components/ui/separator"
+
 
 
 const menBreadcrumbs = [
