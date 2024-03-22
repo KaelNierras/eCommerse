@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { email, password, rememberMe, signInWithEmail } from "../controllers/login_controller";
 import { useRouter } from "vue-router";
 
-
 const router = useRouter();
 
 const submitForm = async (e: Event) => {
@@ -40,13 +39,9 @@ const submitForm = async (e: Event) => {
           <label for="remember" class="ms-2 text-sm font-medium">Remember
             me</label>
         </div>
-        <!-- <a href="#" class="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a> -->
       </div>
       <Button type="submit"
         class="w-full ">Login</Button>
-      <!-- <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-            Not registered? <a href="#" class="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
-        </div> -->
     </form>
   </div>
 </template>
