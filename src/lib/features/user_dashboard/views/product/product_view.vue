@@ -45,6 +45,4 @@ import { Star } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue';
 import { images, productStats, productDetails, sizes, selectedImage, selectedSize  } from '../../models/product';
 
-
-
 </script>

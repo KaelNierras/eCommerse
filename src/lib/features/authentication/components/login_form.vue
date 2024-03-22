@@ -1,46 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { auth } from '../../../data/repository/firebaseConfig';
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { useRouter } from 'vue-router';
 import { Button } from "@/components/ui/button";
+import { email, password, rememberMe, signInWithEmail } from "../controllers/login_controller";
+import { useRouter } from "vue-router";
 
 
 const router = useRouter();
 
-const email = ref(localStorage.getItem('rememberMe') || '');
-const password = ref('');
-const rememberMe = ref(localStorage.getItem('rememberMe') ? true : false);
-
-const signInWithEmail = async (email: string, password: string) => {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    if (rememberMe.value) {
-      localStorage.setItem('rememberMe', email);
-    } else {
-      localStorage.removeItem('rememberMe');
-    }
-    window.alert('You have successfully signed in');
-
-    // Check if the email contains 'user' or 'admin' and redirect accordingly
-    if (email.includes('user')) {
-      router.push('/user-dashboard');
-    } else if (email.includes('admin')) {
-      router.push('/admin-dashboard');
-    } else {
-      router.push('/dashboard');
-    }
-  } catch (error: any) {
-    window.alert(error.message);
-  }
+const submitForm = async (e: Event) => {
+  e.preventDefault();
+  await signInWithEmail(email.value, password.value, router);
 };
-
 </script>
 
 <template>
   <div
     class="w-80 sm:w-96 p-8 rounded-lg shadow md:p-8 bg-background/80">
-    <form class="space-y-6" @submit.prevent="signInWithEmail(email, password)">
+    <form class="space-y-6" @submit.prevent="submitForm">
       <h5 class="text-2xl font-bold">Welcome to YourStyle</h5>
       <span class=" text-base font-norma">Find things that fit your style</span>
       <div>
