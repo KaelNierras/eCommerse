@@ -3,8 +3,13 @@
     class=" h-42 gap-2 flex flex-col backdrop-blur-lg items-center md:h-16 md:justify-between justify-center relative md:flex-row ">
 
     <div v-if="isLoggedIn" class="flex flex-row md:mb-2 items-center gap-4">
-      <Button variant="ghost" class="font-bold p-0">Men</Button>
-      <Button variant="ghost" class="font-bold p-0">Women</Button>
+      <router-link to="/men">
+        <Button variant="ghost" class="font-bold p-0">Men</Button>
+      </router-link>
+
+      <router-link to="/women">
+        <Button variant="ghost" class="font-bold p-0">Women</Button>
+      </router-link>
     </div>
 
     <div class="flex md:pt-0 pt-0 flex-col w-48 items-center justify-center md:flex-row gap-2">
