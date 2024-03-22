@@ -70,6 +70,4 @@ import { Button } from "@/components/ui/button";
 import { newCollection } from '../models/item';
 import { category } from '../models/category';
 
-
-
 </script>

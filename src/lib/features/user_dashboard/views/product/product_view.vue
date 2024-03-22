@@ -43,41 +43,8 @@
 <script setup lang="ts">
 import { Star } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue';
-import { ref } from 'vue';
-import { Image, ProductDetails, ProductStats, Size } from '../../models/product';
+import { images, productStats, productDetails, sizes, selectedImage, selectedSize  } from '../../models/product';
 
 
-const images: Image[] = [
-    { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg' },
-    { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg' },
-    { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg' },
-    { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg' },
-    { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg' },
-    { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg' }
-]
 
-const productStats: ProductStats = {
-    rating: '4.9',
-    reviews: '9.2k',
-    sold: '10k'
-}
-
-const productDetails: ProductDetails = {
-    name: 'Bandacore Tshirt',
-    price: '₱300',
-    color: 'Cream',
-    currency: 'PHP',
-    description: "This t-shirt is made from 100% organic cotton. It's soft, comfortable, and perfect for everyday wear. The classic cut and neutral color make it a versatile addition to any wardrobe. It features a crew neck, short sleeves, and a relaxed fit that suits all body types. Machine washable for easy care. Available in various sizes."
-}
-
-const sizes: Size[] = [
-    { size: 'XS' },
-    { size: 'S' },
-    { size: 'M' },
-    { size: 'L' },
-    { size: 'XL' }
-]
-
-let selectedImage = ref<Image>(images[0])
-let selectedSize = ref<Size>(sizes[0])
 </script>
