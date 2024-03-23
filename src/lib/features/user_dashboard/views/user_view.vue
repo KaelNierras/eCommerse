@@ -24,7 +24,7 @@
 
   <div class="w-full h-full grid sm:grid-cols-1 md:grid-cols-3 gap-5 mt-5">
     <div v-for="(item, index) in newCollection" :key="index" class="h-auto m-2">
-      <router-link :to="`/product/${item.id}`">
+      <router-link :to="`/product/${item.id}`" @click="goToProduct(item.id)">
         <img class="rounded-lg h-80 w-auto object-cover" :src="item.url" alt="" />
       </router-link>
       <div class="p-3">
@@ -50,7 +50,7 @@
         <img class="rounded-lg h-96 w-auto object-cover" :src="item.image" alt="" />
         <div class="absolute bottom-0 left-0 p-5 md:p-10 w-full bg-opacity-50 text-white">
           <p class="font-bold text-4xl mb-5">{{ item.name }}</p>
-          <router-link :to="item.ref">
+          <router-link :to="item.ref" >
             <Button variant="secondary" class="px-8 rounded-full font-bold">See Details</Button>
           </router-link>
         </div>
@@ -68,6 +68,10 @@ import { newCollection, populateNewCollection } from '../controllers/item';
 import { category } from '../models/category';
 import Header from "@/components/common/header.vue";
 import { onMounted } from "vue";
+
+function goToProduct(id: number) {
+  localStorage.setItem('selectedProduct', id.toString());
+}
 
 onMounted(populateNewCollection);
 

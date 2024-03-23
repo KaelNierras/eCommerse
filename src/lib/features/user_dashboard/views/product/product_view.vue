@@ -47,6 +47,12 @@ import Button from '@/components/ui/button/Button.vue';
 import { productStats, sizes, selectedSize  } from '../../models/product';
 import { images, selectedImage, populateProductDetails, productDetails  } from '../../controllers/product';
 
-onMounted(populateProductDetails);
+onMounted(async () => {
+    const selectedProduct = localStorage.getItem('selectedProduct');
+    console.log(selectedProduct);
+    if (selectedProduct) {
+        await populateProductDetails(selectedProduct);
+    }
+});
 
 </script>

@@ -1,8 +1,8 @@
 import { getAllProducts } from "@/lib/data/repository/firebase";
-import { Product } from "../models/products";
+import { ProductTable } from "../models/products";
 import { ref } from "vue";
 
-export const products = ref<Product[]>([]);
+export const products = ref<ProductTable[]>([]);
 
 export const populateAllProducts = async () => {
     const allProducts = await getAllProducts();

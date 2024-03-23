@@ -20,26 +20,26 @@
                             <Label for="name" class="text-right">
                                 Name
                             </Label>
-                            <Input id="name" class="col-span-3" />
+                            <Input v-model="name" class="col-span-3" />
                         </div>
                         <div class="grid grid-cols-4 items-center gap-4">
-                            <Label for="name" class="text-right">
+                            <Label class="text-right">
                                 Category
                             </Label>
-                            <Select>
+                            <Select v-model="category">
                                 <SelectTrigger class="col-span-3">
                                     <SelectValue placeholder="" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel></SelectLabel>
-                                        <SelectItem value="apple">
+                                        <SelectItem value="Men">
                                             Men
                                         </SelectItem>
-                                        <SelectItem value="banana">
+                                        <SelectItem value="Women">
                                             Women
                                         </SelectItem>
-                                        <SelectItem value="blueberry">
+                                        <SelectItem value="Kids">
                                             Kids
                                         </SelectItem>
                                     </SelectGroup>
@@ -50,26 +50,26 @@
                             <Label for="price" class="text-right">
                                 Price
                             </Label>
-                            <Input id="price" value="" class="col-span-3" />
+                            <Input id="price" v-model="price" class="col-span-3" />
                         </div>
                         <div class="grid grid-cols-4 items-center gap-4">
                             <Label for="color" class="text-right">
                                 Color
                             </Label>
-                            <Input id="color" value="" class="col-span-3" />
+                            <Input id="color" v-model="color" class="col-span-3" />
                         </div>
-                        <div class="grid grid-cols-4 items-center gap-4">
+                        <div class="grid grid-cols-4 items-start gap-4">
                             <Label for="username" class="text-right">
                                 Description
                             </Label>
-                            <Input id="username" value="@peduarte" class="col-span-3" />
+                            <Textarea placeholder="Type your message here."  v-model="description" class="col-span-3" />
                         </div>
                         <div class="grid grid-cols-4 items-center gap-4">
                             <Label for="username" class="text-right">
                                 Sizes
                             </Label>
                             <div class="col-span-1">
-                                <Checkbox id="XS" />
+                                <Checkbox id="XS" @click="updateSizes('XS')" />
                                 <label
                                 for="XS"
                                 class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -78,7 +78,7 @@
                                 </label>
                             </div>
                             <div class="col-span-1">
-                                <Checkbox id="S" />
+                                <Checkbox id="S" @click="updateSizes('S')"/>
                                 <label
                                 for="S"
                                 class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -87,7 +87,7 @@
                                 </label>
                             </div>
                             <div class="col-span-1">
-                                <Checkbox id="M" />
+                                <Checkbox id="M" @click="updateSizes('M')"/>
                                 <label
                                 for="M"
                                 class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -97,7 +97,7 @@
                             </div>
                             <div class="col-span-1"></div>
                             <div class="col-span-1">
-                                <Checkbox id="L" />
+                                <Checkbox id="L" @click="updateSizes('L')"/>
                                 <label
                                 for="L"
                                 class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -106,7 +106,7 @@
                                 </label>
                             </div>
                             <div class="col-span-1">
-                                <Checkbox id="XL" />
+                                <Checkbox id="XL" @click="updateSizes('XL')"/>
                                 <label
                                 for="XL"
                                 class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -115,7 +115,10 @@
                                 </label>
                             </div>
                         </div>
-                        <Separator class="my-5" />
+                        <Separator class="my-3" />
+                        <DialogDescription>
+                           Select up to five images for your product.
+                        </DialogDescription>
                         <div class="grid grid-cols-4 items-center gap-4">
                             <Label for="username" class="text-right">
                                 Image 1
@@ -149,7 +152,7 @@
 
                     </div>
                     <DialogFooter>
-                        <Button type="submit">
+                        <Button type="submit" @click=addProduct>
                             Add
                         </Button>
                     </DialogFooter>
@@ -214,32 +217,100 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+        Dialog,
+        DialogContent,
+        DialogDescription,
+        DialogFooter,
+        DialogHeader,
+        DialogTitle,
+        DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from "@/components/ui/separator"
-import { Product } from '../models/products'
+import { Product, ProductTable } from '../models/products' // assuming you have a class ProductModel
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
+        Select,
+        SelectContent,
+        SelectGroup,
+        SelectItem,
+        SelectLabel,
+        SelectTrigger,
+        SelectValue,
 } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Textarea } from '@/components/ui/textarea'
+import { db } from '@/lib/data/repository/firebaseConfig'
+import { Timestamp, addDoc, collection } from 'firebase/firestore'
+import { ref } from 'vue'
+
+var category = ref('');
+var name = ref('');
+var price = ref('');
+var color = ref('');
+var description = ref('');
+var size = ref<string[]>([]);
+
+const updateSizes = (sizeValue: string) => {
+    const index = size.value.indexOf(sizeValue);
+    if (index !== -1) {
+        // sizeValue is already in the array, remove it
+        size.value.splice(index, 1);
+    } else {
+        // sizeValue is not in the array, add it
+        size.value.push(sizeValue);
+    }
+
+    // Reference array for sorting
+    const sizeOrder = ['XS', 'S', 'M', 'L', 'XL'];
+
+    // Sort the size array based on the order in sizeOrder
+    size.value.sort((a, b) => sizeOrder.indexOf(a) - sizeOrder.indexOf(b));
+};
+
+function generateRandomId(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+}
+
+const addProduct = async (product: Product) => {
+    try {
+        const productsRef = collection(db, 'products');
+        product = {
+            id: generateRandomId(20),
+            added_date: Timestamp.now(),
+            name: name.value,
+            category: category.value,
+            price: price.value,
+            color: color.value,
+            description: description.value,
+            size: size.value,
+            url: ['xs', 's', 'm', 'l', 'xl'],
+        };
+        await addDoc(productsRef, {
+            id: product.id,
+            added_date: product.added_date,
+            name: product.name,
+            category: product.category,
+            price: product.price,
+            color: product.color,
+            description: product.description,
+            sizes: product.size,
+            url: product.url
+        });
+        
+    } catch (e) {
+        console.error('Error adding document: ', e);
+    }
+};
 
 defineProps({
     products: {
-        type: Array as () => Product[],
+        type: Array as () => ProductTable[],
         required: true
     }
 })
