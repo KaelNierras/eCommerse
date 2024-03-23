@@ -11,8 +11,8 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col gap-5 mt-10">
-            <h1 class="text-5xl md:text-6xl font-bold">{{ productDetails.name }}</h1>
+        <div class="flex flex-col gap-5 mt-10" v-for="(product, index) in productDetails" :key="index">
+            <h1 class="text-5xl md:text-6xl font-bold">{{ product.name }}</h1>
             <div class="flex flex-row  gap-10">
                 <div class="flex flex-row">
                     <Star />
@@ -21,9 +21,9 @@
                 <span class="font-medium">{{ productStats.reviews }}k Reviews</span>
                 <span class="font-medium">{{ productStats.sold }}k Sold Out</span>
             </div>
-            <span class="text-4xl md:text-5xl font-medium">PHP ₱{{ productDetails.price
+            <span class="text-4xl md:text-5xl font-medium">PHP ₱{{ product.price
                 }}</span>
-            <span class="text-2xl md:text-lg font-medium">Color: <b>{{ productDetails.color }}</b></span>
+            <span class="text-2xl md:text-lg font-medium">Color: <b>{{ product.color }}</b></span>
             <span class="text-2xl md:text-lg font-medium">Size:</span>
             <div class="">
                 <Button v-for="(size, index) in sizes" :key="index" variant="outline" class="m-2 w-24 h-14 rounded-3xl"
@@ -35,14 +35,18 @@
             <Button variant="outline" class="w-full h-14 rounded-3xl">Add to Cart</Button>
 
             <h2 class="text-2xl font-bold">Product Description</h2>
-            <span>{{ productDetails.description }}</span>
+            <span>{{ product.description }}</span>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { Star } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue';
-import { images, productStats, productDetails, sizes, selectedImage, selectedSize  } from '../../models/product';
+import { productStats, sizes, selectedSize  } from '../../models/product';
+import { images, selectedImage, populateProductDetails, productDetails  } from '../../controllers/product';
+
+onMounted(populateProductDetails);
 
 </script>

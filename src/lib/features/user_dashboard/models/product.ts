@@ -1,34 +1,25 @@
 import { ref } from 'vue'
 
-interface Image {
+export interface Image {
     url: string;
 }
 
-interface ProductStats {
+export interface ProductStats {
     rating: string;
     reviews: string;
     sold: string;
 }
 
-interface ProductDetails {
+export interface ProductDetails {
     name: string;
     price: string;
     color: string;
     description: string;
 }
 
-interface Size {
+export interface Size {
     size: string;
 }
-
-export const images: Image[] = [
-    { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg' },
-    { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg' },
-    { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg' },
-    { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg' },
-    { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg' },
-    { url: 'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg' }
-]
 
 export const productStats: ProductStats = {
     rating: '4.9',
@@ -36,12 +27,6 @@ export const productStats: ProductStats = {
     sold: '10'
 }
 
-export const productDetails: ProductDetails = {
-    name: 'Bandacore Tshirt',
-    price: '300',
-    color: 'Cream',
-    description: "This t-shirt is made from 100% organic cotton. It's soft, comfortable, and perfect for everyday wear. The classic cut and neutral color make it a versatile addition to any wardrobe. It features a crew neck, short sleeves, and a relaxed fit that suits all body types. Machine washable for easy care. Available in various sizes."
-}
 
 export const sizes: Size[] = [
     { size: 'XS' },
@@ -51,5 +36,4 @@ export const sizes: Size[] = [
     { size: 'XL' }
 ]
 
-export let selectedImage = ref<Image>(images[0])
 export let selectedSize = ref<Size>(sizes[0])
