@@ -1,16 +1,19 @@
 <template>
     <Header
-        title="Product Management"
+        header="Product Management"
         description="Manage your products here. You can add, edit, and delete products." 
         description2="" 
 
     />
 
-    <product_table />
+    <product_table
+        :products="products" />
 
 </template>
 
 <script setup lang="ts">
 import Header from '@/components/common/header.vue';
 import product_table from '../components/product_table.vue';
+import { products } from '../models/products'
+
 </script>

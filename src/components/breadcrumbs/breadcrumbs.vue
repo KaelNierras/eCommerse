@@ -4,7 +4,7 @@
         aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
             <li class="inline-flex items-center">
-                <router-link to="/dashboard"
+                <router-link :to="activeHome || ''"
                     class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
                     <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         fill="currentColor" viewBox="0 0 20 20">
@@ -14,7 +14,7 @@
                     Home
                 </router-link>
             </li>
-            <li v-for="(value, index) in props.items" :key="index">
+            <li v-for="(value, index) in items" :key="index">
                 <div class="flex items-center">
                     <svg class="rtl:rotate-180 block w-3 h-3 mx-1 text-gray-400 " aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
@@ -33,7 +33,8 @@
 import { defineProps } from 'vue';
 
 // in <script setup>
-const props = defineProps({
+defineProps({
+  activeHome: String,
   items: Object
 })
 </script>

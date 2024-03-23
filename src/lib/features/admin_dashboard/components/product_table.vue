@@ -150,8 +150,13 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from "@/components/ui/separator"
-import { products } from '../models/products'
+import { Product } from '../models/products'
 
-
+defineProps({
+    products: {
+        type: Array as () => Product[],
+        required: true
+    }
+})
 
 </script>
