@@ -11,7 +11,7 @@ import loginForm from '../components/login_form.vue'
 
 <style scoped>
 .bg{
-  background-image: url('background.png');
+  background-image: url('/background.png');
   background-size: cover;
 }
 

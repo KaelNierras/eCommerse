@@ -14,7 +14,6 @@ interface ProductDetails {
     name: string;
     price: string;
     color: string;
-    currency: string;
     description: string;
 }
 
@@ -33,15 +32,14 @@ export const images: Image[] = [
 
 export const productStats: ProductStats = {
     rating: '4.9',
-    reviews: '9.2k',
-    sold: '10k'
+    reviews: '9.2',
+    sold: '10'
 }
 
 export const productDetails: ProductDetails = {
     name: 'Bandacore Tshirt',
-    price: '₱300',
+    price: '300',
     color: 'Cream',
-    currency: 'PHP',
     description: "This t-shirt is made from 100% organic cotton. It's soft, comfortable, and perfect for everyday wear. The classic cut and neutral color make it a versatile addition to any wardrobe. It features a crew neck, short sleeves, and a relaxed fit that suits all body types. Machine washable for easy care. Available in various sizes."
 }
 

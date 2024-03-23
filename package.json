@@ -12,7 +12,7 @@
     "@formkit/auto-animate": "^0.8.1",
     "@radix-icons/vue": "^1.0.0",
     "@vee-validate/zod": "^4.12.5",
-    "@vueuse/core": "^10.8.0",
+    "@vueuse/core": "^10.9.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "firebase": "^10.8.0",

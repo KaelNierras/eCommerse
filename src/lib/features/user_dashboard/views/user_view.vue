@@ -16,13 +16,11 @@
     </div>
   </div>
 
-  <!-- header -->
-  <div class="w-full flex flex-col items-center justify-center gap-5 mt-40 mb-20">
-    <h1 class="text-5xl font-bold">NEW COLLECTION</h1>
-    <p class="text-md text-center opacity-40 font-semibold">Our lastest collection where classic and contemporary styles
-      converge in<br>perfect harmony</p>
-  </div>
-
+  <Header 
+    header="NEW COLLECTION" 
+    description="Find out our best summer collection. Offering our best quality product in a Tolus" 
+    description2="Spring Collection" 
+  />
 
   <div class="w-full h-full grid sm:grid-cols-1 md:grid-cols-3 gap-5 mt-5">
     <div v-for="(item, index) in newCollection" :key="index" class="h-auto m-2">
@@ -39,13 +37,12 @@
     </div>
   </div>
 
+  <Header 
+    header="CATEGORIES" 
+    description="Explore our diverse categories, a blend of classic and contemporary styles." 
+    description2="Discover the perfect harmony of design, style, and quality in our latest collection." 
+  />
 
-  <!-- header -->
-  <div class="w-full flex flex-col items-center justify-center gap-5 mt-40 mb-20">
-    <h1 class="text-5xl font-bold">CATEGORIES</h1>
-    <p class="text-md text-center opacity-40 font-semibold">Explore our diverse categories, a blend of classic and
-      contemporary styles.<br>Discover the perfect harmony of design, style, and quality in our latest collection.</p>
-  </div>
 
   <div class="w-full h-full flex flex-wrap sm:flex-nowrap justify-center">
     <div v-for="(item, index) in category" :key="index" class="h-auto m-2 relative">
@@ -69,5 +66,6 @@
 import { Button } from "@/components/ui/button";
 import { newCollection } from '../models/item';
 import { category } from '../models/category';
+import Header from "@/components/common/header.vue";
 
 </script>

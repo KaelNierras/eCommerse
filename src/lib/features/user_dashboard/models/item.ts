@@ -1,12 +1,12 @@
 import { ref } from 'vue';
 
-interface Items {
+export interface Items {
     id: number;
     name: string;
     price: number;
     description: string;
     image: string;
-  }
+}
 
 export const kidsItems = ref<Items[]>([
     { id: 1, name: 'Jacket', price: 300, description: 'A stylish and warm jacket for winter', image: '/background.png' },

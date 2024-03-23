@@ -18,10 +18,10 @@
                     <Star />
                     <span class="font-medium">({{ productStats.rating }})</span>
                 </div>
-                <span class="font-medium">{{ productStats.reviews }} Reviews</span>
-                <span class="font-medium">{{ productStats.sold }} Sold Out</span>
+                <span class="font-medium">{{ productStats.reviews }}k Reviews</span>
+                <span class="font-medium">{{ productStats.sold }}k Sold Out</span>
             </div>
-            <span class="text-4xl md:text-5xl font-medium">{{ productDetails.currency }} {{ productDetails.price
+            <span class="text-4xl md:text-5xl font-medium">PHP ₱{{ productDetails.price
                 }}</span>
             <span class="text-2xl md:text-lg font-medium">Color: <b>{{ productDetails.color }}</b></span>
             <span class="text-2xl md:text-lg font-medium">Size:</span>
