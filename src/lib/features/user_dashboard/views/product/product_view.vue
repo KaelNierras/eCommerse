@@ -41,11 +41,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { Star } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue';
 import { productStats, sizes, selectedSize  } from '../../models/product';
-import { images, selectedImage, populateProductDetails, productDetails  } from '../../controllers/product';
+import { images, selectedImage, populateProductDetails, productDetails, resetImage  } from '../../controllers/product';
 
 onMounted(async () => {
     const selectedProduct = localStorage.getItem('selectedProduct');
@@ -53,6 +53,11 @@ onMounted(async () => {
     if (selectedProduct) {
         await populateProductDetails(selectedProduct);
     }
+});
+
+onUnmounted(() => {
+    resetImage();
+    console.log('unmounted');
 });
 
 </script>

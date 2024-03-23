@@ -33,13 +33,13 @@
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel></SelectLabel>
-                                        <SelectItem value="Men">
+                                        <SelectItem value="men">
                                             Men
                                         </SelectItem>
-                                        <SelectItem value="Women">
+                                        <SelectItem value="women">
                                             Women
                                         </SelectItem>
-                                        <SelectItem value="Kids">
+                                        <SelectItem value="kids">
                                             Kids
                                         </SelectItem>
                                     </SelectGroup>
@@ -62,7 +62,7 @@
                             <Label for="username" class="text-right">
                                 Description
                             </Label>
-                            <Textarea placeholder="Type your message here."  v-model="description" class="col-span-3" />
+                            <Textarea placeholder="Type your message here." v-model="description" class="col-span-3" />
                         </div>
                         <div class="grid grid-cols-4 items-center gap-4">
                             <Label for="username" class="text-right">
@@ -70,84 +70,79 @@
                             </Label>
                             <div class="col-span-1">
                                 <Checkbox id="XS" @click="updateSizes('XS')" />
-                                <label
-                                for="XS"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                XS
+                                <label for="XS"
+                                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    XS
                                 </label>
                             </div>
                             <div class="col-span-1">
-                                <Checkbox id="S" @click="updateSizes('S')"/>
-                                <label
-                                for="S"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                S
+                                <Checkbox id="S" @click="updateSizes('S')" />
+                                <label for="S"
+                                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    S
                                 </label>
                             </div>
                             <div class="col-span-1">
-                                <Checkbox id="M" @click="updateSizes('M')"/>
-                                <label
-                                for="M"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                M
+                                <Checkbox id="M" @click="updateSizes('M')" />
+                                <label for="M"
+                                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    M
                                 </label>
                             </div>
                             <div class="col-span-1"></div>
                             <div class="col-span-1">
-                                <Checkbox id="L" @click="updateSizes('L')"/>
-                                <label
-                                for="L"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                L
+                                <Checkbox id="L" @click="updateSizes('L')" />
+                                <label for="L"
+                                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    L
                                 </label>
                             </div>
                             <div class="col-span-1">
-                                <Checkbox id="XL" @click="updateSizes('XL')"/>
-                                <label
-                                for="XL"
-                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                XL
+                                <Checkbox id="XL" @click="updateSizes('XL')" />
+                                <label for="XL"
+                                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    XL
                                 </label>
                             </div>
                         </div>
                         <Separator class="my-3" />
                         <DialogDescription>
-                           Select up to five images for your product.
+                            Select up to five images for your product.
                         </DialogDescription>
                         <div class="grid grid-cols-4 items-center gap-4">
                             <Label for="username" class="text-right">
                                 Image 1
                             </Label>
-                            <Input id="picture" type="file" class="col-span-3 h-full p-0" />
+                            <input type="file" @change="onFileChange1"
+                                class="rounded col-span-3 h-full p-0 text-sm  file:text-sm " />
                         </div>
                         <div class="grid grid-cols-4 items-center gap-4">
                             <Label for="username" class="text-right">
                                 Image 2
                             </Label>
-                            <Input id="picture" type="file" class="col-span-3 h-full p-0" />
+                            <input type="file" @change="onFileChange2"
+                                class="rounded col-span-3 h-full p-0 text-sm  file:text-sm " />
                         </div>
                         <div class="grid grid-cols-4 items-center gap-4">
                             <Label for="username" class="text-right">
                                 Image 3
                             </Label>
-                            <Input id="picture" type="file" class="col-span-3 h-full p-0" />
+                            <input type="file" @change="onFileChange3"
+                                class="rounded col-span-3 h-full p-0 text-sm  file:text-sm " />
                         </div>
                         <div class="grid grid-cols-4 items-center gap-4">
                             <Label for="username" class="text-right">
                                 Image 4
                             </Label>
-                            <Input id="picture" type="file" class="col-span-3 h-full p-0" />
+                            <input type="file" @change="onFileChange4"
+                                class="rounded col-span-3 h-full p-0 text-sm  file:text-sm " />
                         </div>
                         <div class="grid grid-cols-4 items-center gap-4">
                             <Label for="username" class="text-right">
                                 Image 5
                             </Label>
-                            <Input id="picture" type="file" class="col-span-3 h-full p-0" />
+                            <input type="file" @change="onFileChange5"
+                                class="rounded col-span-3 h-full p-0 text-sm  file:text-sm " />
                         </div>
 
                     </div>
@@ -206,7 +201,158 @@
                         {{ product.description }}
                     </td>
                     <td class="px-6 py-4 text-right">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        <Dialog>
+                            <DialogTrigger as-child>
+                                <Button variant="default" @click="updateField(product.id)">
+                                    Edit
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent class="sm:max-w-[525px] max-w-[335px]">
+                                <DialogHeader>
+                                    <DialogTitle>Edit Product</DialogTitle>
+                                    <DialogDescription>
+                                        Add a edit product to your catalog here. Click add when you're done.
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div class="grid gap-4 py-4 row ">
+                                    <div class="grid grid-cols-4 items-center gap-4">
+                                        <Label for="name" class="text-right">
+                                            Name
+                                        </Label>
+                                        <Input v-model="name" class="col-span-3" />
+                                    </div>
+                                    <div class="grid grid-cols-4 items-center gap-4">
+                                        <Label class="text-right">
+                                            Category
+                                        </Label>
+                                        <Select v-model="category">
+                                            <SelectTrigger class="col-span-3">
+                                                <SelectValue placeholder="" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectLabel></SelectLabel>
+                                                    <SelectItem value="men">
+                                                        Men
+                                                    </SelectItem>
+                                                    <SelectItem value="women">
+                                                        Women
+                                                    </SelectItem>
+                                                    <SelectItem value="kids">
+                                                        Kids
+                                                    </SelectItem>
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div class="grid grid-cols-4 items-center gap-4">
+                                        <Label for="price" class="text-right">
+                                            Price
+                                        </Label>
+                                        <Input id="price" v-model="price" class="col-span-3" />
+                                    </div>
+                                    <div class="grid grid-cols-4 items-center gap-4">
+                                        <Label for="color" class="text-right">
+                                            Color
+                                        </Label>
+                                        <Input id="color" v-model="color" class="col-span-3" />
+                                    </div>
+                                    <div class="grid grid-cols-4 items-start gap-4">
+                                        <Label for="username" class="text-right">
+                                            Description
+                                        </Label>
+                                        <Textarea placeholder="Type your message here." v-model="description"
+                                            class="col-span-3" />
+                                    </div>
+                                    <div class="grid grid-cols-4 items-center gap-4">
+                                        <Label for="username" class="text-right">
+                                            Sizes
+                                        </Label>
+                                        <div class="col-span-1">
+                                            <Checkbox id="XS" @click="updateSizes('XS')" />
+                                            <label for="XS"
+                                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                                XS
+                                            </label>
+                                        </div>
+                                        <div class="col-span-1">
+                                            <Checkbox id="S" @click="updateSizes('S')" />
+                                            <label for="S"
+                                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                                S
+                                            </label>
+                                        </div>
+                                        <div class="col-span-1">
+                                            <Checkbox id="M" @click="updateSizes('M')" />
+                                            <label for="M"
+                                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                                M
+                                            </label>
+                                        </div>
+                                        <div class="col-span-1"></div>
+                                        <div class="col-span-1">
+                                            <Checkbox id="L" @click="updateSizes('L')" />
+                                            <label for="L"
+                                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                                L
+                                            </label>
+                                        </div>
+                                        <div class="col-span-1">
+                                            <Checkbox id="XL" @click="updateSizes('XL')" />
+                                            <label for="XL"
+                                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                                XL
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <Separator class="my-3" />
+                                    <DialogDescription>
+                                        Select up to five images for your product.
+                                    </DialogDescription>
+                                    <div class="grid grid-cols-4 items-center gap-4">
+                                        <Label for="username" class="text-right">
+                                            Image 1
+                                        </Label>
+                                        <input type="file" @change="onFileChange1"
+                                            class="rounded col-span-3 h-full p-0 text-sm  file:text-sm " />
+                                    </div>
+                                    <div class="grid grid-cols-4 items-center gap-4">
+                                        <Label for="username" class="text-right">
+                                            Image 2
+                                        </Label>
+                                        <input type="file" @change="onFileChange2"
+                                            class="rounded col-span-3 h-full p-0 text-sm  file:text-sm " />
+                                    </div>
+                                    <div class="grid grid-cols-4 items-center gap-4">
+                                        <Label for="username" class="text-right">
+                                            Image 3
+                                        </Label>
+                                        <input type="file" @change="onFileChange3"
+                                            class="rounded col-span-3 h-full p-0 text-sm  file:text-sm " />
+                                    </div>
+                                    <div class="grid grid-cols-4 items-center gap-4">
+                                        <Label for="username" class="text-right">
+                                            Image 4
+                                        </Label>
+                                        <input type="file" @change="onFileChange4"
+                                            class="rounded col-span-3 h-full p-0 text-sm  file:text-sm " />
+                                    </div>
+                                    <div class="grid grid-cols-4 items-center gap-4">
+                                        <Label for="username" class="text-right">
+                                            Image 5
+                                        </Label>
+                                        <input type="file" @change="onFileChange5"
+                                            class="rounded col-span-3 h-full p-0 text-sm  file:text-sm " />
+                                    </div>
+
+                                </div>
+                                <DialogFooter>
+                                    <Button type="submit" @click="updateTrigger(product.id)">
+                                        Add
+                                    </Button>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
                     </td>
                 </tr>
             </tbody>
@@ -217,32 +363,34 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
 import {
-        Dialog,
-        DialogContent,
-        DialogDescription,
-        DialogFooter,
-        DialogHeader,
-        DialogTitle,
-        DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from "@/components/ui/separator"
 import { Product, ProductTable } from '../models/products' // assuming you have a class ProductModel
 import {
-        Select,
-        SelectContent,
-        SelectGroup,
-        SelectItem,
-        SelectLabel,
-        SelectTrigger,
-        SelectValue,
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
 } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Textarea } from '@/components/ui/textarea'
 import { db } from '@/lib/data/repository/firebaseConfig'
-import { Timestamp, addDoc, collection } from 'firebase/firestore'
-import { ref } from 'vue'
+import { Timestamp, addDoc, collection, doc, updateDoc } from 'firebase/firestore'
+import { ref } from 'vue';
+import { uploadBytes, getDownloadURL, ref as refStore } from 'firebase/storage';
+import { getStorage } from "firebase/storage";
 
 var category = ref('');
 var name = ref('');
@@ -250,6 +398,54 @@ var price = ref('');
 var color = ref('');
 var description = ref('');
 var size = ref<string[]>([]);
+var currentId = ref(''); 
+
+function updateField(id: string) {
+    const currentId = id;
+    console.log(currentId);
+    clearFields();
+}
+
+function clearFields() {
+    category.value = '';
+    name.value = '';
+    price.value = '';
+    color.value = '';
+    description.value = '';
+    size.value = [];
+}
+
+let selectedFiles = ref<(File | null)[]>([null, null, null, null, null]);
+
+const onFileChange = (index: number) => (e: Event) => {
+    selectedFiles.value[index] = ((e.target as HTMLInputElement)?.files?.[0] || null);
+    console.log(selectedFiles.value[index]?.name);
+};
+
+const onFileChange1 = onFileChange(0);
+const onFileChange2 = onFileChange(1);
+const onFileChange3 = onFileChange(2);
+const onFileChange4 = onFileChange(3);
+const onFileChange5 = onFileChange(4);
+
+
+async function uploadImage(selectedFile: File, id: string, name: string): Promise<string> {
+    // Create a root reference
+    const storage = getStorage();
+
+    // Upload the image to Firebase Storage
+    const storageRef = refStore(storage, 'images/' + id + '/' + name);
+    if (selectedFile) {
+        await uploadBytes(storageRef, selectedFile);
+    } else {
+        await uploadBytes(storageRef, new Uint8Array());
+    }
+
+    // Get the download URL for the uploaded image
+    const imageURL = await getDownloadURL(storageRef);
+    return imageURL;
+}
+
 
 const updateSizes = (sizeValue: string) => {
     const index = size.value.indexOf(sizeValue);
@@ -280,8 +476,19 @@ function generateRandomId(length: number): string {
 const addProduct = async (product: Product) => {
     try {
         const productsRef = collection(db, 'products');
+        var URL = ref<string[]>([]);
+
+        const randomId = generateRandomId(20)
+        for (let i = 0; i < selectedFiles.value.length; i++) {
+            if (!selectedFiles.value[i] || selectedFiles.value[i]?.size === 0) {
+                continue;
+            }
+            var imageLink = await uploadImage(selectedFiles.value[i] || new File([], ''), randomId.toString(), `image${i}.jpg`);
+            URL.value.push(imageLink);
+        }
+
         product = {
-            id: generateRandomId(20),
+            id: randomId,
             added_date: Timestamp.now(),
             name: name.value,
             category: category.value,
@@ -289,8 +496,9 @@ const addProduct = async (product: Product) => {
             color: color.value,
             description: description.value,
             size: size.value,
-            url: ['xs', 's', 'm', 'l', 'xl'],
+            url: URL.value,
         };
+        console.log(product);
         await addDoc(productsRef, {
             id: product.id,
             added_date: product.added_date,
@@ -302,11 +510,56 @@ const addProduct = async (product: Product) => {
             sizes: product.size,
             url: product.url
         });
-        
+
     } catch (e) {
         console.error('Error adding document: ', e);
     }
 };
+
+
+const updateProduct = async (product: Product) => {
+    try {
+        const productsRef = doc(db, 'products', product.id);
+        var URL = ref<string[]>([]);
+
+        for (let i = 0; i < selectedFiles.value.length; i++) {
+            if (!selectedFiles.value[i] || selectedFiles.value[i]?.size === 0) {
+                continue;
+            }
+            var imageLink = await uploadImage(selectedFiles.value[i] || new File([], ''), product.id, `image${i}.jpg`);
+            URL.value.push(imageLink);
+        }
+
+        product = {
+            ...product,
+            name: name.value,
+            category: category.value,
+            price: price.value,
+            color: color.value,
+            description: description.value,
+            size: size.value,
+            url: URL.value,
+        };
+        console.log(product);
+        await updateDoc(productsRef, {
+            name: product.name,
+            category: product.category,
+            price: product.price,
+            color: product.color,
+            description: product.description,
+            sizes: product.size,
+            url: product.url
+        });
+
+    } catch (e) {
+        console.error('Error updating document: ', e);
+    }
+};
+
+async function updateTrigger(id: string) {
+    currentId.value = id;
+    await updateProduct;
+}
 
 defineProps({
     products: {

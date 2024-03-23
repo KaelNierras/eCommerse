@@ -13,6 +13,7 @@ export interface Product {
 }
 
 export interface ProductTable {
+    id: string;
     color: string;
     name: string;
     description: string;

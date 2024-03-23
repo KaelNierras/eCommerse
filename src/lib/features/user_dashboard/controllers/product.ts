@@ -17,9 +17,13 @@ export const populateProductDetails = async (id: string) => {
             color: product.color,
             description: product.description
         }];
-        images.length = 0;
         const newImages = product.url.map((url: any) => ({ url }));
         images.push(...newImages);
         selectedImage.value = images[0];
     }
+};
+
+export const resetImage = () => {
+    images.length = 0;
+    selectedImage.value = { url: '' };
 };
