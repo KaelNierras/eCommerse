@@ -1,26 +1,50 @@
 <template>
     <!-- Product Management -->
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <div class="w-full flex items-center justify-end">
+        <div class="w-full flex flex-col items-end justify-end">
             <Dialog>
                 <DialogTrigger as-child>
                     <Button variant="default">
                         Add Product
                     </Button>
                 </DialogTrigger>
-                <DialogContent class="sm:max-w-[425px]">
+                <DialogContent class="sm:max-w-[525px] max-w-[335px]">
                     <DialogHeader>
                         <DialogTitle>Add Product</DialogTitle>
                         <DialogDescription>
                             Add a new product to your catalog here. Click add when you're done.
                         </DialogDescription>
                     </DialogHeader>
-                    <div class="grid gap-4 py-4">
+                    <div class="grid gap-4 py-4 row ">
                         <div class="grid grid-cols-4 items-center gap-4">
                             <Label for="name" class="text-right">
                                 Name
                             </Label>
-                            <Input id="name" value="Pedro Duarte" class="col-span-3" />
+                            <Input id="name" class="col-span-3" />
+                        </div>
+                        <div class="grid grid-cols-4 items-center gap-4">
+                            <Label for="name" class="text-right">
+                                Category
+                            </Label>
+                            <Select>
+                                <SelectTrigger class="col-span-3">
+                                    <SelectValue placeholder="" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel></SelectLabel>
+                                        <SelectItem value="apple">
+                                            Men
+                                        </SelectItem>
+                                        <SelectItem value="banana">
+                                            Women
+                                        </SelectItem>
+                                        <SelectItem value="blueberry">
+                                            Kids
+                                        </SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
                         </div>
                         <div class="grid grid-cols-4 items-center gap-4">
                             <Label for="price" class="text-right">
@@ -39,6 +63,57 @@
                                 Description
                             </Label>
                             <Input id="username" value="@peduarte" class="col-span-3" />
+                        </div>
+                        <div class="grid grid-cols-4 items-center gap-4">
+                            <Label for="username" class="text-right">
+                                Sizes
+                            </Label>
+                            <div class="col-span-1">
+                                <Checkbox id="XS" />
+                                <label
+                                for="XS"
+                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                >
+                                XS
+                                </label>
+                            </div>
+                            <div class="col-span-1">
+                                <Checkbox id="S" />
+                                <label
+                                for="S"
+                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                >
+                                S
+                                </label>
+                            </div>
+                            <div class="col-span-1">
+                                <Checkbox id="M" />
+                                <label
+                                for="M"
+                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                >
+                                M
+                                </label>
+                            </div>
+                            <div class="col-span-1"></div>
+                            <div class="col-span-1">
+                                <Checkbox id="L" />
+                                <label
+                                for="L"
+                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                >
+                                L
+                                </label>
+                            </div>
+                            <div class="col-span-1">
+                                <Checkbox id="XL" />
+                                <label
+                                for="XL"
+                                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                >
+                                XL
+                                </label>
+                            </div>
                         </div>
                         <Separator class="my-5" />
                         <div class="grid grid-cols-4 items-center gap-4">
@@ -136,7 +211,7 @@
     </div>
 </template>
 
-<script setup lang="ts">    
+<script setup lang="ts">
 import { Button } from '@/components/ui/button'
 import {
     Dialog,
@@ -151,6 +226,16 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from "@/components/ui/separator"
 import { Product } from '../models/products'
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select'
+import { Checkbox } from '@/components/ui/checkbox'
 
 defineProps({
     products: {

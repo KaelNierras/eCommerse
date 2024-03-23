@@ -14,6 +14,9 @@
 <script setup lang="ts">
 import Header from '@/components/common/header.vue';
 import product_table from '../components/product_table.vue';
-import { products } from '../models/products'
+import { products, populateAllProducts } from '../controllers/products'
+import { onMounted } from 'vue';
+
+onMounted(populateAllProducts);
 
 </script>

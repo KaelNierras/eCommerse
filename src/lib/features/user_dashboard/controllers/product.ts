@@ -1,4 +1,4 @@
-import { getAllProducts } from "@/lib/data/repository/firebase";
+import { getAllProducts, getWomenProducts } from "@/lib/data/repository/firebase";
 import { Image, ProductDetails } from "../models/product";
 import { ref } from "vue";
 

@@ -64,8 +64,11 @@
 
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
-import { newCollection } from '../models/item';
+import { newCollection, populateNewCollection } from '../controllers/item';
 import { category } from '../models/category';
 import Header from "@/components/common/header.vue";
+import { onMounted } from "vue";
+
+onMounted(populateNewCollection);
 
 </script>

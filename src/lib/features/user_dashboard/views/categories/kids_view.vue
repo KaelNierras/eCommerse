@@ -10,8 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import { kidsItems } from '../../models/item';
+import { kidsItems, populateKidsItems } from '../../controllers/item';
 import Header from '@/components/common/header.vue';
 import item_render from '@/components/common/item_render.vue';
+import { onMounted } from 'vue';
+
+onMounted(populateKidsItems);
 
 </script>

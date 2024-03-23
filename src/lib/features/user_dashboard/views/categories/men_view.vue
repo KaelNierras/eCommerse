@@ -10,9 +10,12 @@
 </template>
 
 <script setup lang="ts">
-import { menItems } from '../../models/item';
+import { menItems, populateMenItems } from '../../controllers/item';
 import Header from '@/components/common/header.vue';
 import item_render from '@/components/common/item_render.vue';
+import { onMounted } from 'vue';
+
+onMounted(populateMenItems);
 
 
 </script>

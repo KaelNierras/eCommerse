@@ -10,8 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import { womenItems } from '../../models/item';
+import { womenItems, populateWomenItems } from '../../controllers/item';
 import Header from '@/components/common/header.vue';
 import item_render from '@/components/common/item_render.vue';
+import { onMounted } from 'vue';
+
+onMounted(populateWomenItems);
 
 </script>
