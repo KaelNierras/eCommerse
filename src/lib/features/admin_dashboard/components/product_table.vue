@@ -347,8 +347,11 @@
 
                                 </div>
                                 <DialogFooter>
+                                    <Button variant="destructive" type="submit" @click="deleteTrigger(product.id)">
+                                        Delete
+                                    </Button>
                                     <Button type="submit" @click="updateTrigger(product.id)">
-                                        Add
+                                        Update
                                     </Button>
                                 </DialogFooter>
                             </DialogContent>
@@ -387,7 +390,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox'
 import { Textarea } from '@/components/ui/textarea'
 import { db } from '@/lib/data/repository/firebaseConfig'
-import { Timestamp, addDoc, collection, getDocs, query, updateDoc, where } from 'firebase/firestore'
+import { Timestamp, addDoc, collection, deleteDoc, getDocs, query, updateDoc, where } from 'firebase/firestore'
 import { ref } from 'vue';
 import { uploadBytes, getDownloadURL, ref as refStore, deleteObject } from 'firebase/storage';
 import { getStorage } from "firebase/storage";
@@ -535,6 +538,27 @@ const addProduct = async (product: Product) => {
     }
 };
 
+const deleteProduct = async (id: string) => {
+    try {
+        const productsCollection = collection(db, 'products');
+        const q = query(productsCollection, where("id", "==", id));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.empty) {
+            console.log('No matching documents.');
+            return;
+        }
+        querySnapshot.forEach((doc) => {
+            deleteDoc(doc.ref).then(() => {
+                console.log('Document deleted successfully');
+            }).catch((error) => {
+                console.error('Error deleting document: ', error);
+            });
+        });
+    } catch (e) {
+        console.error('Error deleting document: ', e);
+    }
+};
+
 
 const updateProduct = async (id: string) => {
     try {
@@ -553,7 +577,11 @@ const updateProduct = async (id: string) => {
                 // Create a reference to the file to delete
                 const currentImage = refStore(storage, `images/${id}/image${i}.jpg`);
                 // Delete the file
-                deleteObject(currentImage);
+                deleteObject(currentImage).then(() => {
+                    console.log('File deleted successfully');
+                }).catch((error) => {
+                    console.error('Error removing file: ', error);
+                });
             }
             URL.value = [];
         } else {
@@ -599,6 +627,11 @@ const updateProduct = async (id: string) => {
         console.error('Error updating document: ', e);
     }
 };
+
+async function deleteTrigger(id: string) {
+    currentId.value = id;
+    deleteProduct(currentId.value);
+}
 
 async function updateTrigger(id: string) {
     currentId.value = id;
