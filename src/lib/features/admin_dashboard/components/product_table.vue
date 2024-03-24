@@ -387,10 +387,11 @@ import {
 import { Checkbox } from '@/components/ui/checkbox'
 import { Textarea } from '@/components/ui/textarea'
 import { db } from '@/lib/data/repository/firebaseConfig'
-import { Timestamp, addDoc, collection, doc, updateDoc } from 'firebase/firestore'
+import { Timestamp, addDoc, collection, getDocs, query, updateDoc, where } from 'firebase/firestore'
 import { ref } from 'vue';
-import { uploadBytes, getDownloadURL, ref as refStore } from 'firebase/storage';
+import { uploadBytes, getDownloadURL, ref as refStore, deleteObject } from 'firebase/storage';
 import { getStorage } from "firebase/storage";
+import { getSpecificProduct } from '@/lib/data/repository/firebase'
 
 var category = ref('');
 var name = ref('');
@@ -398,13 +399,31 @@ var price = ref('');
 var color = ref('');
 var description = ref('');
 var size = ref<string[]>([]);
-var currentId = ref(''); 
+var currentId = ref('');
 
 function updateField(id: string) {
     const currentId = id;
+    populateAllProducts(currentId);
     console.log(currentId);
     clearFields();
 }
+
+const populateAllProducts = async (id: string) => {
+    const specificProduct: Product[] = await getSpecificProduct(id) as Product[];
+    specificProduct
+        .map((product: Product) => ({
+            name: product.name,
+            color: product.color,
+            description: product.description,
+            price: product.price,
+        }));
+
+    name.value = specificProduct[0].name;
+    category.value = specificProduct[0].category;
+    price.value = specificProduct[0].price;
+    color.value = specificProduct[0].color;
+    description.value = specificProduct[0].description;
+};
 
 function clearFields() {
     category.value = '';
@@ -517,21 +536,45 @@ const addProduct = async (product: Product) => {
 };
 
 
-const updateProduct = async (product: Product) => {
+const updateProduct = async (id: string) => {
     try {
-        const productsRef = doc(db, 'products', product.id);
-        var URL = ref<string[]>([]);
-
-        for (let i = 0; i < selectedFiles.value.length; i++) {
-            if (!selectedFiles.value[i] || selectedFiles.value[i]?.size === 0) {
-                continue;
-            }
-            var imageLink = await uploadImage(selectedFiles.value[i] || new File([], ''), product.id, `image${i}.jpg`);
-            URL.value.push(imageLink);
+        const productsCollection = collection(db, 'products');
+        const q = query(productsCollection, where("id", "==", id));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.empty) {
+            console.log('No matching documents.');
+            return;
         }
-
-        product = {
-            ...product,
+        var URL = ref<string[]>([]);
+        if (selectedFiles.value[0] == null && selectedFiles.value[1] == null && selectedFiles.value[2] == null && selectedFiles.value[3] == null && selectedFiles.value[4] == null) {
+            console.log(id);
+            const storage = getStorage();
+            for (let i = 0; i < 5; i++) {
+                // Create a reference to the file to delete
+                const currentImage = refStore(storage, `images/${id}/image${i}.jpg`);
+                // Delete the file
+                deleteObject(currentImage);
+            }
+            URL.value = [];
+        } else {
+            const storage = getStorage();
+            for (let i = 0; i < 5; i++) {
+                // Create a reference to the file to delete
+                const currentImage = refStore(storage, `images/${id}/image${i}.jpg`);
+                // Delete the file
+                deleteObject(currentImage);
+            }
+            URL.value = [];
+            for (let i = 0; i < selectedFiles.value.length; i++) {
+                if (!selectedFiles.value[i] || selectedFiles.value[i]?.size === 0) {
+                    continue;
+                }
+                var imageLink = await uploadImage(selectedFiles.value[i] || new File([], ''), currentId.value, `image${i}.jpg`);
+                URL.value.push(imageLink);
+            }
+        }
+        const product = {
+            id: currentId.value,
             name: name.value,
             category: category.value,
             price: price.value,
@@ -541,16 +584,17 @@ const updateProduct = async (product: Product) => {
             url: URL.value,
         };
         console.log(product);
-        await updateDoc(productsRef, {
-            name: product.name,
-            category: product.category,
-            price: product.price,
-            color: product.color,
-            description: product.description,
-            sizes: product.size,
-            url: product.url
+        querySnapshot.forEach((doc) => {
+            updateDoc(doc.ref, {
+                name: product.name,
+                category: product.category,
+                price: product.price,
+                color: product.color,
+                description: product.description,
+                sizes: product.size,
+                url: product.url
+            });
         });
-
     } catch (e) {
         console.error('Error updating document: ', e);
     }
@@ -558,7 +602,7 @@ const updateProduct = async (product: Product) => {
 
 async function updateTrigger(id: string) {
     currentId.value = id;
-    await updateProduct;
+    updateProduct(currentId.value);
 }
 
 defineProps({

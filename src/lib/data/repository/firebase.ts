@@ -39,3 +39,11 @@ export const getKidsProducts = async () => {
     const productList = productSnapshot.docs.map(doc => doc.data());
     return productList;
 };
+
+export const getSpecificProduct = async (id: string) => {
+    const productsCollection = collection(db, "products");
+    const q = query(productsCollection, where("id", "==", id));
+    const productSnapshot = await getDocs(q);
+    const productList = productSnapshot.docs.map(doc => doc.data());
+    return productList;
+};
