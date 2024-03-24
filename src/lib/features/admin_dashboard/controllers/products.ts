@@ -14,4 +14,5 @@ export const populateAllProducts = async () => {
             description: product.description,
             price: product.price,
         }));
+    return true
 };

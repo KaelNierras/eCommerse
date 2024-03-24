@@ -1,4 +1,5 @@
 <template>
+
     <!-- Product Management -->
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="w-full flex flex-col items-end justify-end">
@@ -395,6 +396,7 @@ import { ref } from 'vue';
 import { uploadBytes, getDownloadURL, ref as refStore, deleteObject } from 'firebase/storage';
 import { getStorage } from "firebase/storage";
 import { getSpecificProduct } from '@/lib/data/repository/firebase'
+import router from '@/lib/router'
 
 var category = ref('');
 var name = ref('');
@@ -532,36 +534,16 @@ const addProduct = async (product: Product) => {
             sizes: product.size,
             url: product.url
         });
-
+        router.push('/admin-dashboard');
     } catch (e) {
         console.error('Error adding document: ', e);
-    }
-};
-
-const deleteProduct = async (id: string) => {
-    try {
-        const productsCollection = collection(db, 'products');
-        const q = query(productsCollection, where("id", "==", id));
-        const querySnapshot = await getDocs(q);
-        if (querySnapshot.empty) {
-            console.log('No matching documents.');
-            return;
-        }
-        querySnapshot.forEach((doc) => {
-            deleteDoc(doc.ref).then(() => {
-                console.log('Document deleted successfully');
-            }).catch((error) => {
-                console.error('Error deleting document: ', error);
-            });
-        });
-    } catch (e) {
-        console.error('Error deleting document: ', e);
     }
 };
 
 
 const updateProduct = async (id: string) => {
     try {
+        localStorage.setItem('loading_screen', 'true');
         const productsCollection = collection(db, 'products');
         const q = query(productsCollection, where("id", "==", id));
         const querySnapshot = await getDocs(q);
@@ -623,8 +605,30 @@ const updateProduct = async (id: string) => {
                 url: product.url
             });
         });
+        router.push('/admin-dashboard');
     } catch (e) {
         console.error('Error updating document: ', e);
+    }
+};
+
+const deleteProduct = async (id: string) => {
+    try {
+        const productsCollection = collection(db, 'products');
+        const q = query(productsCollection, where("id", "==", id));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.empty) {
+            console.log('No matching documents.');
+            return;
+        }
+        querySnapshot.forEach((doc) => {
+            deleteDoc(doc.ref).then(() => {
+                console.log('Document deleted successfully');
+            }).catch((error) => {
+                console.error('Error deleting document: ', error);
+            });
+        });
+    } catch (e) {
+        console.error('Error deleting document: ', e);
     }
 };
 
@@ -646,3 +650,4 @@ defineProps({
 })
 
 </script>
+
