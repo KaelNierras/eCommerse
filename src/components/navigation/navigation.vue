@@ -25,23 +25,23 @@
       </router-link>
     </div>
 
-    <div class="flex md:hidden relative w-56 items-center mt-2">
+    <!-- <div class="flex md:hidden relative w-56 items-center mt-2">
       <Input id="search" type="text" placeholder="Search..." class="pl-10" />
       <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
         <Search @click="search = false" class="size-6 text-muted-foreground hover:cursor-pointer" />
       </span>
-    </div>
+    </div> -->
 
     <div class="flex flex-row items-center gap-4">
-      <Button v-if="!search && !isAdmin" variant="ghost" class="hidden md:flex p-0">
+      <!-- <Button v-if="!search && !isAdmin" variant="ghost" class="hidden md:flex p-0">
         <Search class="size-6 text-muted-foreground hover:cursor-pointer" @click="search = true" />
-      </Button>
-      <div v-if="search && !isAdmin" class=" hidden md:flex relative w-full max-w-sm items-center">
+      </Button> -->
+      <!-- <div v-if="search && !isAdmin" class=" hidden md:flex relative w-full max-w-sm items-center">
         <Input id="search" type="text" placeholder="Search..." class="pl-10" />
         <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
           <Search @click="search = false" class="size-6 text-muted-foreground hover:cursor-pointer" />
         </span>
-      </div>
+      </div> -->
       <Button variant="ghost" v-if="isLoggedIn" class="p-0">
         <ShoppingCart class="size-6 text-muted-foreground hover:cursor-pointer" />
       </Button>
@@ -59,7 +59,7 @@
 
 <script setup lang="ts">
 import { ShoppingCart, Search, LogOut } from 'lucide-vue-next';
-import { Input } from "@/components/ui/input";
+//import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ref, onMounted } from "vue";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
