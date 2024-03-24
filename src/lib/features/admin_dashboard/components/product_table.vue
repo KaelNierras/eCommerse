@@ -152,7 +152,7 @@
                             Add
                         </Button>
                         <Button v-else type="submit" @click=addProduct>
-                            Adding...
+                            <loading_animation></loading_animation>
                         </Button>
                     </DialogFooter>
                 </DialogContent>
@@ -355,13 +355,13 @@
                                         Delete
                                     </Button>
                                     <Button v-else variant="destructive" type="submit" @click="deleteTrigger(product.id)">
-                                        Deleting
+                                        <loading_animation></loading_animation>
                                     </Button>
                                     <Button v-if="!isLoading" type="submit" @click="updateTrigger(product.id)">
                                         Update
                                     </Button>
                                     <Button v-else type="submit" @click="updateTrigger(product.id)">
-                                        Updating...
+                                        <loading_animation></loading_animation>
                                     </Button>
                                 </DialogFooter>
                             </DialogContent>
@@ -405,6 +405,7 @@ import { ref } from 'vue';
 import { uploadBytes, getDownloadURL, ref as refStore, deleteObject } from 'firebase/storage';
 import { getStorage } from "firebase/storage";
 import { getSpecificProduct } from '@/lib/data/repository/firebase'
+import loading_animation from "@/components/common/animation/loading_animation.vue";
 
 var category = ref('');
 var name = ref('');
@@ -517,8 +518,9 @@ const addProduct = async (product: Product) => {
             if (!selectedFiles.value[i] || selectedFiles.value[i]?.size === 0) {
                 continue;
             }
-            var imageLink = await uploadImage(selectedFiles.value[i] || new File([], ''), randomId.toString(), `image${i}.jpg`);
+            var imageLink = await uploadImage(selectedFiles.value[i] || new File([], ''), randomId.toString(), `image${i}`);
             URL.value.push(imageLink);
+            console.log(imageLink);
         }
 
         product = {
@@ -565,9 +567,9 @@ const updateProduct = async (id: string) => {
         if (selectedFiles.value[0] == null && selectedFiles.value[1] == null && selectedFiles.value[2] == null && selectedFiles.value[3] == null && selectedFiles.value[4] == null) {
             console.log(id);
             const storage = getStorage();
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 4; i++) {
                 // Create a reference to the file to delete
-                const currentImage = refStore(storage, `images/${id}/image${i}.jpg`);
+                const currentImage = refStore(storage, `images/${id}/image${i}`);
                 // Delete the file
                 deleteObject(currentImage).then(() => {
                     console.log('File deleted successfully');
@@ -578,19 +580,25 @@ const updateProduct = async (id: string) => {
             URL.value = [];
         } else {
             const storage = getStorage();
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 4; i++) {
                 // Create a reference to the file to delete
-                const currentImage = refStore(storage, `images/${id}/image${i}.jpg`);
+                const currentImage = refStore(storage, `images/${id}/image${i}`);
                 // Delete the file
-                deleteObject(currentImage);
+                deleteObject(currentImage).then(() => {
+                    console.log('File deleted successfully');
+                }).catch((error) => {
+                    console.error('Error removing file: ', error);
+                });
             }
             URL.value = [];
             for (let i = 0; i < selectedFiles.value.length; i++) {
                 if (!selectedFiles.value[i] || selectedFiles.value[i]?.size === 0) {
                     continue;
                 }
-                var imageLink = await uploadImage(selectedFiles.value[i] || new File([], ''), id, `image${i}.jpg`);
+                var imageLink = await uploadImage(selectedFiles.value[i] || new File([], ''), id, `image${i}`);
                 URL.value.push(imageLink);
+                console.log(imageLink);
+
             }
         }
         const product = {
@@ -624,9 +632,9 @@ const updateProduct = async (id: string) => {
 const deleteProduct = async (id: string) => {
     try {
         const storage = getStorage();
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 4; i++) {
             // Create a reference to the file to delete
-            const currentImage = refStore(storage, `images/${id}/image${i}.jpg`);
+            const currentImage = refStore(storage, `images/${id}/image${i}`);
             // Delete the file
             deleteObject(currentImage).then(() => {
                 console.log('File deleted successfully');
@@ -649,8 +657,11 @@ const deleteProduct = async (id: string) => {
 };
 
 async function deleteTrigger(id: string) {
+    isLoading.value = true;
     await deleteProduct(id);
     window.location.reload();
+    isLoading.value = false;
+
 }
 
 async function updateTrigger(id: string) {
