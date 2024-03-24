@@ -5,7 +5,7 @@
         <div class="w-full flex flex-col items-end justify-end">
             <Dialog>
                 <DialogTrigger as-child>
-                    <Button variant="default">
+                    <Button variant="default" @click="clearFields">
                         Add Product
                     </Button>
                 </DialogTrigger>
@@ -148,8 +148,11 @@
 
                     </div>
                     <DialogFooter>
-                        <Button type="submit" @click=addProduct>
+                        <Button v-if="!isLoading" type="submit" @click=addProduct>
                             Add
+                        </Button>
+                        <Button v-else type="submit" @click=addProduct>
+                            Adding...
                         </Button>
                     </DialogFooter>
                 </DialogContent>
@@ -351,8 +354,11 @@
                                     <Button variant="destructive" type="submit" @click="deleteTrigger(product.id)">
                                         Delete
                                     </Button>
-                                    <Button type="submit" @click="updateTrigger(product.id)">
+                                    <Button v-if="!isLoading" type="submit" @click="updateTrigger(product.id)">
                                         Update
+                                    </Button>
+                                    <Button v-else type="submit" @click="updateTrigger(product.id)">
+                                        Updating...
                                     </Button>
                                 </DialogFooter>
                             </DialogContent>
@@ -396,7 +402,6 @@ import { ref } from 'vue';
 import { uploadBytes, getDownloadURL, ref as refStore, deleteObject } from 'firebase/storage';
 import { getStorage } from "firebase/storage";
 import { getSpecificProduct } from '@/lib/data/repository/firebase'
-import router from '@/lib/router'
 
 var category = ref('');
 var name = ref('');
@@ -404,7 +409,8 @@ var price = ref('');
 var color = ref('');
 var description = ref('');
 var size = ref<string[]>([]);
-var currentId = ref('');
+
+var isLoading = ref(false);
 
 function updateField(id: string) {
     const currentId = id;
@@ -470,7 +476,6 @@ async function uploadImage(selectedFile: File, id: string, name: string): Promis
     return imageURL;
 }
 
-
 const updateSizes = (sizeValue: string) => {
     const index = size.value.indexOf(sizeValue);
     if (index !== -1) {
@@ -498,6 +503,7 @@ function generateRandomId(length: number): string {
 }
 
 const addProduct = async (product: Product) => {
+    isLoading.value = true;
     try {
         const productsRef = collection(db, 'products');
         var URL = ref<string[]>([]);
@@ -534,12 +540,12 @@ const addProduct = async (product: Product) => {
             sizes: product.size,
             url: product.url
         });
-        router.push('/admin-dashboard');
+        window.location.reload();
     } catch (e) {
         console.error('Error adding document: ', e);
     }
+    isLoading.value = false;
 };
-
 
 const updateProduct = async (id: string) => {
     try {
@@ -579,12 +585,12 @@ const updateProduct = async (id: string) => {
                 if (!selectedFiles.value[i] || selectedFiles.value[i]?.size === 0) {
                     continue;
                 }
-                var imageLink = await uploadImage(selectedFiles.value[i] || new File([], ''), currentId.value, `image${i}.jpg`);
+                var imageLink = await uploadImage(selectedFiles.value[i] || new File([], ''), id, `image${i}.jpg`);
                 URL.value.push(imageLink);
             }
         }
         const product = {
-            id: currentId.value,
+            id: id,
             name: name.value,
             category: category.value,
             price: price.value,
@@ -605,7 +611,7 @@ const updateProduct = async (id: string) => {
                 url: product.url
             });
         });
-        router.push('/admin-dashboard');
+        window.location.reload();
     } catch (e) {
         console.error('Error updating document: ', e);
     }
@@ -613,6 +619,17 @@ const updateProduct = async (id: string) => {
 
 const deleteProduct = async (id: string) => {
     try {
+        const storage = getStorage();
+        for (let i = 0; i < 5; i++) {
+            // Create a reference to the file to delete
+            const currentImage = refStore(storage, `images/${id}/image${i}.jpg`);
+            // Delete the file
+            deleteObject(currentImage).then(() => {
+                console.log('File deleted successfully');
+            }).catch((error) => {
+                console.error('Error removing file: ', error);
+            });
+        }
         const productsCollection = collection(db, 'products');
         const q = query(productsCollection, where("id", "==", id));
         const querySnapshot = await getDocs(q);
@@ -620,26 +637,22 @@ const deleteProduct = async (id: string) => {
             console.log('No matching documents.');
             return;
         }
-        querySnapshot.forEach((doc) => {
-            deleteDoc(doc.ref).then(() => {
-                console.log('Document deleted successfully');
-            }).catch((error) => {
-                console.error('Error deleting document: ', error);
-            });
-        });
+        const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref));
+        return Promise.all(deletePromises);
     } catch (e) {
         console.error('Error deleting document: ', e);
     }
 };
 
 async function deleteTrigger(id: string) {
-    currentId.value = id;
-    deleteProduct(currentId.value);
+    await deleteProduct(id);
+    window.location.reload();
 }
 
 async function updateTrigger(id: string) {
-    currentId.value = id;
-    updateProduct(currentId.value);
+    isLoading.value = true;
+    await updateProduct(id);
+    isLoading.value = false;
 }
 
 defineProps({
@@ -650,4 +663,3 @@ defineProps({
 })
 
 </script>
-

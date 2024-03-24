@@ -1,4 +1,3 @@
-import { ref } from 'vue'
 
 export interface Image {
     url: string;
@@ -28,12 +27,3 @@ export const productStats: ProductStats = {
 }
 
 
-export const sizes: Size[] = [
-    { size: 'XS' },
-    { size: 'S' },
-    { size: 'M' },
-    { size: 'L' },
-    { size: 'XL' }
-]
-
-export let selectedSize = ref<Size>(sizes[0])

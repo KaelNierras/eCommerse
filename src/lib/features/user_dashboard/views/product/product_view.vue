@@ -27,9 +27,9 @@
             <span class="text-2xl md:text-lg font-medium">Size:</span>
             <div class="">
                 <Button v-for="(size, index) in sizes" :key="index" variant="outline" class="m-2 w-24 h-14 rounded-3xl"
-                    :class="{ 'bg-primary text-primary-foreground': selectedSize.size === size.size }"
-                    @click="selectedSize = size">{{ size.size
-                    }}</Button>
+                    :class="{ 'bg-primary text-primary-foreground': selectedSize === size }"
+                    @click="selectedSize = size">{{ size
+                }}</Button>
             </div>
             <Button variant="default" class="w-full h-14 rounded-3xl">Buy Now</Button>
             <Button variant="outline" class="w-full h-14 rounded-3xl">Add to Cart</Button>
@@ -44,14 +44,16 @@
 import { onMounted, onUnmounted } from 'vue';
 import { Star } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue';
-import { productStats, sizes, selectedSize  } from '../../models/product';
-import { images, selectedImage, populateProductDetails, productDetails, resetImage  } from '../../controllers/product';
+import { productStats  } from '../../models/product';
+import { images, selectedImage, populateProductDetails, productDetails, resetImage, sizes, selectedSize, populateSizes  } from '../../controllers/product';
+
 
 onMounted(async () => {
     const selectedProduct = localStorage.getItem('selectedProduct');
     console.log(selectedProduct);
     if (selectedProduct) {
         await populateProductDetails(selectedProduct);
+        await populateSizes(selectedProduct);
     }
 });
 

@@ -47,3 +47,4 @@ export const getSpecificProduct = async (id: string) => {
     const productList = productSnapshot.docs.map(doc => doc.data());
     return productList;
 };
+
