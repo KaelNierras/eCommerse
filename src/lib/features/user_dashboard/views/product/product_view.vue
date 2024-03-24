@@ -2,7 +2,7 @@
     <div class="grid grid-row md:grid-cols-[2fr,1fr] gap-16">
         <div class="grid gap-4">
             <div class="aspect-w-16 aspect-h-9">
-                <img class="h-feature min-w-full rounded-lg object-cover" :src="selectedImage.url" alt="">
+                <img v-if="selectedImage.url.length != 0" class="h-feature min-w-full rounded-lg object-cover" :src="selectedImage.url" alt="">
             </div>
             <div class="grid grid-cols-5 gap-4">
                 <div v-for="(image, index) in images" :key="index" class="aspect-w-1 aspect-h-1">

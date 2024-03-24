@@ -351,8 +351,11 @@
 
                                 </div>
                                 <DialogFooter>
-                                    <Button variant="destructive" type="submit" @click="deleteTrigger(product.id)">
+                                    <Button v-if="!isLoadingDeleting" variant="destructive" type="submit" @click="deleteTrigger(product.id)">
                                         Delete
+                                    </Button>
+                                    <Button v-else variant="destructive" type="submit" @click="deleteTrigger(product.id)">
+                                        Deleting
                                     </Button>
                                     <Button v-if="!isLoading" type="submit" @click="updateTrigger(product.id)">
                                         Update
@@ -411,6 +414,7 @@ var description = ref('');
 var size = ref<string[]>([]);
 
 var isLoading = ref(false);
+var isLoadingDeleting = ref(false);
 
 function updateField(id: string) {
     const currentId = id;
