@@ -2,13 +2,25 @@
 import { Button } from "@/components/ui/button";
 import { email, password, rememberMe, signInWithEmail } from "../controllers/login_controller";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
+import loading_animation from "@/components/common/animation/loading_animation.vue";
 
 const router = useRouter();
 
+var isLoggingIn = ref(false);
+
 const submitForm = async (e: Event) => {
+  isLoggingIn.value = true;
   e.preventDefault();
-  await signInWithEmail(email.value, password.value, router);
+  try {
+    await signInWithEmail(email.value, password.value, router);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    isLoggingIn.value = false;
+  }
 };
+
 </script>
 
 <template>
@@ -40,8 +52,10 @@ const submitForm = async (e: Event) => {
             me</label>
         </div>
       </div>
-      <Button type="submit"
+      <Button v-if="!isLoggingIn" type="submit"
         class="w-full ">Login</Button>
+      <Button v-else type="submit" class="w-full"
+        ><loading_animation></loading_animation></Button>
     </form>
   </div>
 </template>
