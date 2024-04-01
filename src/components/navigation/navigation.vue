@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { ShoppingCart, Search, LogOut } from 'lucide-vue-next';
+import { ShoppingCart, LogOut } from 'lucide-vue-next';
 //import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ref, onMounted } from "vue";
@@ -66,7 +66,7 @@ import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import router from '@/lib/router';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
 
-var search = ref(false);
+//var search = ref(false);
 
 var isLoggedIn = ref(localStorage.getItem('loggedIn') === 'true');
 
