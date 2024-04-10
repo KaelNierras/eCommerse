@@ -6,6 +6,7 @@ import MenCategory from '../features/user_dashboard/views/categories/men_view.vu
 import WomenCategory from '../features/user_dashboard/views/categories/women_view.vue';
 import KidsCategory from '../features/user_dashboard/views/categories/kids_view.vue';
 import ProductView from '../features/user_dashboard/views/product/product_view.vue';
+import CartView from '../features/add_to_card/views/add_to_cart_view.vue';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const routes: RouteRecordRaw[] = [
@@ -61,6 +62,14 @@ const routes: RouteRecordRaw[] = [
     path: '/product/:id',
     name: 'product',
     component: ProductView,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: CartView,
     meta: {
       requiresAuth: true,
     },

@@ -42,9 +42,9 @@
           <Search @click="search = false" class="size-6 text-muted-foreground hover:cursor-pointer" />
         </span>
       </div> -->
-      <Button variant="ghost" v-if="isLoggedIn" class="p-0">
-        <ShoppingCart class="size-6 text-muted-foreground hover:cursor-pointer" />
-      </Button>
+      <router-link to="/cart">
+        <ShoppingCart class="text-muted-foreground hover:cursor-pointer" />
+      </router-link>
       <Button v-if="!isLoggedIn" to="/" class="hover:cursor-pointer">
         LOGIN
       </Button>

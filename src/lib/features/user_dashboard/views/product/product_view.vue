@@ -31,8 +31,8 @@
                     @click="selectedSize = size">{{ size
                 }}</Button>
             </div>
-            <Button variant="default" class="w-full h-14 rounded-3xl">Buy Now</Button>
-            <Button variant="outline" class="w-full h-14 rounded-3xl">Add to Cart</Button>
+            <Button variant="default" class="w-full h-14 rounded-3xl" @click="addToCartItem({id: product.id, name: product.name, color: product.color, quantity: 1, size: selectedSize!.toString()})">Buy Now</Button>
+            <Button variant="outline" class="w-full h-14 rounded-3xl" @click="addToCartItem({id: product.id, name: product.name, color: product.color, quantity: 1, size: selectedSize!.toString()})">Add to Cart</Button>
 
             <h2 class="text-2xl font-bold">Product Description</h2>
             <span>{{ product.description }}</span>
@@ -46,6 +46,18 @@ import { Star } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue';
 import { productStats  } from '../../models/product';
 import { images, selectedImage, populateProductDetails, productDetails, resetImage, sizes, selectedSize, populateSizes  } from '../../controllers/product';
+import { addToCart } from "@/lib/data/repository/firebase";
+import { Cart } from "../../../add_to_card/models/cart";
+
+const addToCartItem = async (cartItem: Cart) => {
+    try {
+        await addToCart(cartItem);
+        alert('Item added to cart');
+    } catch (error) {
+        alert('Failed to add item to cart: ' + error);
+    }
+}
+
 
 
 onMounted(async () => {
@@ -56,6 +68,8 @@ onMounted(async () => {
         await populateSizes(selectedProduct);
     }
 });
+
+
 
 onUnmounted(() => {
     resetImage();

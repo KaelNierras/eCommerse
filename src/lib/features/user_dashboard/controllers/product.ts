@@ -13,6 +13,7 @@ export const populateProductDetails = async (id: string) => {
     const product = products.find(product => product.id === id);
     if (product) {
         productDetails.value =  [{
+            id: product.id,
             name: product.name,
             price: product.price,
             color: product.color,

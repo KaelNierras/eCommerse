@@ -10,6 +10,7 @@ export interface ProductStats {
 }
 
 export interface ProductDetails {
+    id: string;
     name: string;
     price: string;
     color: string;
