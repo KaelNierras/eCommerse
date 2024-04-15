@@ -657,10 +657,10 @@ const deleteProduct = async (id: string) => {
 };
 
 async function deleteTrigger(id: string) {
-    isLoading.value = true;
+    isLoadingDeleting.value = true;
     await deleteProduct(id);
     window.location.reload();
-    isLoading.value = false;
+    isLoadingDeleting.value = false;
 
 }
 
